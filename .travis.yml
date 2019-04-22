@@ -1,0 +1,16 @@
+language: python
+python:
+  - 3.6
+sudo: required
+services:
+  - docker
+cache: pip
+
+jobs:
+  include:
+  - stage: "🤖 Run quality checks"
+    name: "🕵️ Run static analysis tools on code"
+    script: .travis/run-analysis.sh
+  - stage: "🐳 Create build artifacts"
+    script: .travis/build-docker.sh
+    name: "🐳 Build Docker webserver image"

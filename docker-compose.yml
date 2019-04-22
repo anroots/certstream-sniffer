@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+
+  certstream-listener:
+    build:
+      context: .
+    image: anroots/certstream-sniffer
+    command:
+      - python
+      - certstream_listener.py
+      - '--tld=fi'
+      - '--tld=ee'
+      - '--tld=eu'
+      - '--redis-host=redis'
+
+  webserver:
+    build:
+      context: .
+    image: anroots/certstream-sniffer
+    ports:
+      - 8080:8080
+    command:
+      - python
+      - webserver.py
+
+  redis:
+    image: redis:4-alpine
+    ports:
+      - "6379:6379"
+    command: --requirepass certstream
+
