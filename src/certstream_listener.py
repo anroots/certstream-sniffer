@@ -54,8 +54,8 @@ def new_cert(message, context):
             continue
         buffer.append(domain)
 
-        # 'domain:1bf2a387578214393c38e134d35f2f0af65e2d44bf77478d66dc6a5d284ce9b1'
-        db_key = 'domain:{}'.format(hashlib.sha256(domain.encode()).hexdigest())
+        # 'domain:2290babda371e52eeca2a2065a358783'
+        db_key = 'domain:{}'.format(hashlib.md5(domain.encode()).hexdigest())
         redis_db.set(db_key, domain, args.expire_time)
         logging.debug('Found domain %s', domain)
 
